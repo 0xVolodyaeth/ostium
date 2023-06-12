@@ -4,14 +4,15 @@ import "@nomicfoundation/hardhat-verify";
 import dotenv from "dotenv";
 
 const cfg = dotenv.config().parsed!;
-console.log(cfg.POLYGONSCAN_KEY)
 
 const config: HardhatUserConfig = {
 	solidity: "0.8.18",
 	defaultNetwork: "mumbai",
+
 	etherscan: {
 		apiKey: cfg.POLYGONSCAN_KEY!
 	},
+
 	networks: {
 		mumbai: {
 			chainId: 80001,
