@@ -21,6 +21,7 @@ type repository struct {
 type BetRepository interface {
 	Create(ctx context.Context, bet *models.Bet) error
 	Update(ctx context.Context, bet *models.Bet) error
+	GetById(ctx context.Context, bet *models.Bet) error
 }
 
 func NewBetRepository(cfg *Config) (BetRepository, error) {
@@ -55,5 +56,10 @@ func (r *repository) Create(ctx context.Context, bet *models.Bet) error {
 
 func (r *repository) Update(ctx context.Context, bet *models.Bet) error {
 	_, err := r.db.NewUpdate().Model(bet).WherePK().Exec(ctx)
+	return err
+}
+
+func (r *repository) GetById(ctx context.Context, bet *models.Bet) error {
+	_, err := r.db.NewSelect().Model(bet).WherePK().Exec(ctx)
 	return err
 }

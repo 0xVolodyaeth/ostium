@@ -11,4 +11,5 @@ type Bet struct {
 	IsActive     bool   `bun:"is_active,notnull" json:"isActive"`
 	Withdrawn    bool   `bun:"withdrawn,notnull" json:"withdrawn"`
 	Winner       string `bun:"winner,notnull" json:"winner"`
+	Canceled     bool   `bun:"canceled,notnull" json:"canceled"`
 }

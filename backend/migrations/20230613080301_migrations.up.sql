@@ -8,6 +8,7 @@ CREATE TABLE Bets (
     opening_price BIGINT NOT NULL,
     is_active BOOLEAN NOT NULL,
     withdrawn BOOLEAN NOT NULL,
-    winner CHAR(42) NOT NULL
+    winner CHAR(42) NOT NULL,
+    canceled BOOLEAN NOT NULL
 );
 

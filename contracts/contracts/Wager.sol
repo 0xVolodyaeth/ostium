@@ -34,7 +34,8 @@ contract Wager {
         uint256 indexed betId,
         uint96 amount,
         uint96 expiration,
-        uint128 openingPrice
+        uint128 openingPrice,
+        uint256 createdAt
     );
     event JoinBet(address indexed joiner, uint256 indexed betId);
     event Withdrawn(address winner, uint256 indexed betId);
@@ -108,7 +109,8 @@ contract Wager {
             betId,
             _amount,
             _expiration,
-            uint128(assetPrice)
+            uint128(assetPrice),
+            block.timestamp
         );
 
         unchecked {

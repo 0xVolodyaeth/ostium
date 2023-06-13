@@ -83,6 +83,7 @@ func (s *wagerService) Run() (
 	go func() {
 		for {
 			select {
+
 			case <-s.done:
 				betCanceledSub.Unsubscribe()
 				betCanceledSub.Unsubscribe()
