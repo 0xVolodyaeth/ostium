@@ -31,7 +31,7 @@ var (
 
 // WagerMetaData contains all meta data concerning the Wager contract.
 var WagerMetaData = &bind.MetaData{
-	ABI: "[{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_usdc\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_priceFeed\",\"type\":\"address\"}],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"inputs\":[],\"name\":\"AddressDidntWin\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"AddressIsNotBetCreator\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"BetAlreadyTaken\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"BetDoesntExist\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"BetHasNotYetExpired\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"BetIsActive\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"BetIsExpiredAlready\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"NotYourBet\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"TransferFailed\",\"type\":\"error\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"creator\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"betId\",\"type\":\"uint256\"}],\"name\":\"BetCanceled\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"initiator\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"bool\",\"name\":\"long\",\"type\":\"bool\"},{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"betId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint96\",\"name\":\"amount\",\"type\":\"uint96\"},{\"indexed\":false,\"internalType\":\"uint96\",\"name\":\"expiration\",\"type\":\"uint96\"},{\"indexed\":false,\"internalType\":\"uint128\",\"name\":\"openingPrice\",\"type\":\"uint128\"}],\"name\":\"BetMade\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"joiner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"betId\",\"type\":\"uint256\"}],\"name\":\"JoinBet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"winner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"betId\",\"type\":\"uint256\"}],\"name\":\"Withdrawn\",\"type\":\"event\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"bets\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"long\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"short\",\"type\":\"address\"},{\"internalType\":\"uint96\",\"name\":\"amount\",\"type\":\"uint96\"},{\"internalType\":\"uint96\",\"name\":\"expiration\",\"type\":\"uint96\"},{\"internalType\":\"uint120\",\"name\":\"createdAt\",\"type\":\"uint120\"},{\"internalType\":\"uint128\",\"name\":\"openingPrice\",\"type\":\"uint128\"},{\"internalType\":\"bool\",\"name\":\"isActive\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_betId\",\"type\":\"uint256\"}],\"name\":\"cancelBet\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_betId\",\"type\":\"uint256\"}],\"name\":\"joinBet\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint96\",\"name\":\"_amount\",\"type\":\"uint96\"},{\"internalType\":\"uint96\",\"name\":\"_expiration\",\"type\":\"uint96\"},{\"internalType\":\"bool\",\"name\":\"_long\",\"type\":\"bool\"}],\"name\":\"openBet\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_betId\",\"type\":\"uint256\"}],\"name\":\"resolveAndWithdraw\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}]",
+	ABI: "[{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_usdc\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_priceFeed\",\"type\":\"address\"}],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"inputs\":[],\"name\":\"AddressDidntWin\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"AddressIsNotBetCreator\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"BetAlreadyTaken\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"BetDoesntExist\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"BetHasNotYetExpired\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"BetIsActive\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"BetIsExpiredAlready\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"NotYourBet\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"SameAddressForLongAndShort\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"TransferFailed\",\"type\":\"error\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"creator\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"betId\",\"type\":\"uint256\"}],\"name\":\"BetCanceled\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"initiator\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"bool\",\"name\":\"long\",\"type\":\"bool\"},{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"betId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint96\",\"name\":\"amount\",\"type\":\"uint96\"},{\"indexed\":false,\"internalType\":\"uint96\",\"name\":\"expiration\",\"type\":\"uint96\"},{\"indexed\":false,\"internalType\":\"uint128\",\"name\":\"openingPrice\",\"type\":\"uint128\"}],\"name\":\"BetMade\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"joiner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"betId\",\"type\":\"uint256\"}],\"name\":\"JoinBet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"winner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"betId\",\"type\":\"uint256\"}],\"name\":\"Withdrawn\",\"type\":\"event\"},{\"inputs\":[],\"name\":\"betId\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"bets\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"long\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"short\",\"type\":\"address\"},{\"internalType\":\"uint96\",\"name\":\"amount\",\"type\":\"uint96\"},{\"internalType\":\"uint96\",\"name\":\"expiration\",\"type\":\"uint96\"},{\"internalType\":\"uint120\",\"name\":\"createdAt\",\"type\":\"uint120\"},{\"internalType\":\"uint128\",\"name\":\"openingPrice\",\"type\":\"uint128\"},{\"internalType\":\"bool\",\"name\":\"isActive\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_betId\",\"type\":\"uint256\"}],\"name\":\"cancelBet\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_betId\",\"type\":\"uint256\"}],\"name\":\"joinBet\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint96\",\"name\":\"_amount\",\"type\":\"uint96\"},{\"internalType\":\"uint96\",\"name\":\"_expiration\",\"type\":\"uint96\"},{\"internalType\":\"bool\",\"name\":\"_long\",\"type\":\"bool\"}],\"name\":\"openBet\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_betId\",\"type\":\"uint256\"}],\"name\":\"resolveAndWithdraw\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}]",
 }
 
 // WagerABI is the input ABI used to generate the binding from.
@@ -178,6 +178,37 @@ func (_Wager *WagerTransactorRaw) Transfer(opts *bind.TransactOpts) (*types.Tran
 // Transact invokes the (paid) contract method with params as input values.
 func (_Wager *WagerTransactorRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, error) {
 	return _Wager.Contract.contract.Transact(opts, method, params...)
+}
+
+// BetId is a free data retrieval call binding the contract method 0x27bce91b.
+//
+// Solidity: function betId() view returns(uint256)
+func (_Wager *WagerCaller) BetId(opts *bind.CallOpts) (*big.Int, error) {
+	var out []interface{}
+	err := _Wager.contract.Call(opts, &out, "betId")
+
+	if err != nil {
+		return *new(*big.Int), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(*big.Int)).(**big.Int)
+
+	return out0, err
+
+}
+
+// BetId is a free data retrieval call binding the contract method 0x27bce91b.
+//
+// Solidity: function betId() view returns(uint256)
+func (_Wager *WagerSession) BetId() (*big.Int, error) {
+	return _Wager.Contract.BetId(&_Wager.CallOpts)
+}
+
+// BetId is a free data retrieval call binding the contract method 0x27bce91b.
+//
+// Solidity: function betId() view returns(uint256)
+func (_Wager *WagerCallerSession) BetId() (*big.Int, error) {
+	return _Wager.Contract.BetId(&_Wager.CallOpts)
 }
 
 // Bets is a free data retrieval call binding the contract method 0x22af00fa.

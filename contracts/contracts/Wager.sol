@@ -18,6 +18,7 @@ contract Wager {
     }
 
     error TransferFailed();
+    error SameAddressForLongAndShort();
     error BetDoesntExist();
     error BetAlreadyTaken();
     error BetHasNotYetExpired();
@@ -40,7 +41,7 @@ contract Wager {
     event BetCanceled(address creator, uint256 indexed betId);
 
     // USDC returns true on transfer so we can omit SafeERC20 library
-    uint256 internal betId;
+    uint256 public betId;
     IERC20 internal usdc;
     AggregatorV3Interface internal priceFeed;
 
@@ -119,6 +120,9 @@ contract Wager {
     /// @param _betId id of the bet to join
     function joinBet(uint256 _betId) external {
         Bet storage bet = bets[_betId];
+
+        if (bet.long == msg.sender && bet.short == msg.sender)
+            revert SameAddressForLongAndShort();
 
         if (bet.long == address(0) && bet.short == address(0))
             revert BetDoesntExist();

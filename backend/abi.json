@@ -57,6 +57,11 @@
 	},
 	{
 		"inputs": [],
+		"name": "SameAddressForLongAndShort",
+		"type": "error"
+	},
+	{
+		"inputs": [],
 		"name": "TransferFailed",
 		"type": "error"
 	},
@@ -159,6 +164,19 @@
 		],
 		"name": "Withdrawn",
 		"type": "event"
+	},
+	{
+		"inputs": [],
+		"name": "betId",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
 	},
 	{
 		"inputs": [
