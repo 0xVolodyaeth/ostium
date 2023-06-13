@@ -1,71 +1,65 @@
 package main
 
 import (
+	"context"
 	"log"
 	"os"
 	"os/signal"
+	"ostium/pkg/config"
+	"ostium/pkg/repository"
+	"ostium/pkg/service"
 	"ostium/pkg/wager"
 	"sync"
 	"syscall"
 
+	"github.com/spf13/viper"
 	"go.uber.org/zap"
 )
 
 func main() {
-
-	cfg := wager.Config{
-		ProviderURI: "wss://polygon-mumbai.g.alchemy.com/v2/A20qXmbk28bOB0C5P852lsiYhYkFQ_zx",
-		Address:     "0xfA217E7f00FFB089Faf570BD2Beed3a0193D9bCd",
-	}
-
 	logger, err := zap.NewProduction()
 	if err != nil {
 		log.Fatalln(err)
 	}
 
-	svc, err := wager.New(&cfg, logger)
+	v := viper.New()
+
+	v.SetConfigName("config")
+	v.SetConfigType("yaml")
+	v.AddConfigPath("./")
+
+	if err := v.ReadInConfig(); err != nil {
+		logger.Sugar().Fatalln("Failed to connect to read in a config:", err)
+	}
+
+	cfg, err := config.New(v)
+	if err != nil {
+		logger.Sugar().Fatalln("Failed to connect to create a config:", err)
+	}
+
+	repo, err := repository.NewBetRepository(&cfg.DataBase)
+	if err != nil {
+		logger.Sugar().Fatalln("Failed to connect to db:", err)
+	}
+
+	wagerSvc, err := wager.New(&cfg.WagerConfig, logger)
 	if err != nil {
 		log.Fatalln(err)
 	}
 
+	svc := service.New(wagerSvc, repo, logger)
+
 	sigint := make(chan os.Signal, 1)
-	done := make(chan struct{}, 1)
 	signal.Notify(sigint, os.Interrupt)
 	signal.Notify(sigint, syscall.SIGTERM)
 
 	var wg sync.WaitGroup
-	wg.Add(1)
+	ctx, cancel := context.WithCancel(context.Background())
 
-	go func() {
-		defer wg.Done()
-		logger.Info("starting the service...")
-
-		canceledChan, withdrawnChan, betMadeChan, betJoinChan, err := svc.Run()
-		if err != nil {
-			log.Fatalln(err)
-		}
-
-		for {
-			select {
-			case <-done:
-				logger.Info("shutting the service...")
-				svc.Close()
-				return
-
-			case canceled := <-canceledChan:
-				logger.Info("canceled", zap.Any("canceled", canceled))
-			case withdrawn := <-withdrawnChan:
-				logger.Info("withdrawn", zap.Any("withdrawn", withdrawn))
-			case betMade := <-betMadeChan:
-				log.Println("betMade", betMade)
-			case betJoin := <-betJoinChan:
-				logger.Info("betJoin", zap.Any("betJoin", betJoin))
-			}
-		}
-	}()
+	svc.Run(ctx, &wg)
 
 	<-sigint
-	done <- struct{}{}
+	cancel()
 
 	wg.Wait()
 }
