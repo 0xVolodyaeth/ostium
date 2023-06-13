@@ -3,10 +3,13 @@ package service
 import (
 	"context"
 	"log"
+	"ostium/pkg/models"
 	"ostium/pkg/repository"
 	"ostium/pkg/wager"
 	"sync"
+	"time"
 
+	"github.com/ethereum/go-ethereum/common"
 	"go.uber.org/zap"
 )
 
@@ -51,11 +54,63 @@ func (s *service) Run(ctx context.Context, wg *sync.WaitGroup) {
 				s.logger.Info("canceled", zap.Any("canceled", canceled))
 			case withdrawn := <-withdrawnChan:
 				s.logger.Info("withdrawn", zap.Any("withdrawn", withdrawn))
+
 			case betMade := <-betMadeChan:
-				log.Println("betMade", betMade)
+
+				ctx, cancel := context.WithTimeout(ctx, time.Second)
+				defer cancel()
+
+				if err := s.handleBetMade(ctx, betMade); err != nil {
+					s.logger.Error("failed to handle bet made:", zap.Error(err))
+				}
+
 			case betJoin := <-betJoinChan:
 				s.logger.Info("betJoin", zap.Any("betJoin", betJoin))
 			}
 		}
 	}()
+}
+
+func (s *service) handleBetMade(ctx context.Context, betMade *wager.WagerBetMade) error {
+	bet := &models.Bet{
+		ID:           betMade.BetId.Int64(),
+		Amount:       betMade.Amount.Int64(),
+		Expiration:   betMade.Expiration.Int64(),
+		CreatedAt:    betMade.CreatedAt.Int64(),
+		OpeningPrice: betMade.OpeningPrice.Int64(),
+		IsActive:     false,
+		Withdrawn:    false,
+		Winner:       common.Address{}.String(),
+	}
+
+	s.logger.Info("A new bet has been made",
+		zap.Int64("betId", betMade.BetId.Int64()),
+		zap.Bool("long", betMade.Long),
+		zap.Int64("amount", betMade.Amount.Int64()),
+		zap.Int64("expiration", betMade.Expiration.Int64()),
+		zap.Int64("createdAt", betMade.CreatedAt.Int64()),
+		zap.Int64("openingPrice", betMade.OpeningPrice.Int64()),
+	)
+
+	if betMade.Long {
+		bet.LongAddress = betMade.Initiator.String()
+	} else {
+		bet.ShortAddress = betMade.Initiator.String()
+	}
+
+	err := s.repo.Create(ctx, bet)
+
+	return err
+}
+
+func (s *service) handleBetJoined(ctx context.Context, betMade *wager.WagerJoinBet) error {
+	panic("implement me")
+}
+
+func (s *service) handleBetCanceled(ctx context.Context, betMade *wager.WagerBetCanceled) error {
+	panic("implement me")
+}
+
+func (s *service) handleBetWithdrawn(ctx context.Context, betMade *wager.WagerWithdrawn) error {
+	panic("implement me")
 }
